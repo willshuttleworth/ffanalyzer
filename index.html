@@ -1,31 +1,26 @@
 <!DOCTYPE html>
 <html>
   <head>
+  <link rel="stylesheet" href="style.css">
   <meta charset="utf-8"/>
   <title>fantasy standings</title >
-  <style>
-  table, th, td {
-  border: 1px solid black;
-  }
-  table{
-    width: 50%
-  }
-  </style>
   </head>
   <body>
-    <h1 id='header'>Fantasy League Standings</h1>
-    <p id="linkText">please enter league link: </p>
-    <input id="leagueInput" type="text"></input>
-    <button id="leagueSubmit" type="button" onclick="getLeagueId()">submit</button><br></br>
-    <table id = "table">
-    <tr>
-      <td>Place</td>
-      <td><button id="teamName" onclick="sortByName()">Team Name</button></td>
-      <td><button id="cumRecord" onclick="sortByCumRecord()">Cumulative Record</button></td>
-      <td><button id="record" onclick="sortByRecord()">Record</button></td>
-      <td><button id="fraudScore" onclick="sortByFraudScore()">Fraud Score</button></td>
-    </tr>
-  </table>
+        <h1 id='header'>Fantasy League Standings</h1>
+        <p id="linkText">please enter league link: </p>
+        <div class="center">
+          <input id="leagueInput" type="text"></input>
+          <button id="leagueSubmit" type="button" onclick="getLeagueId()">submit</button>
+        </div>
+        <table id = "table">
+          <tr>
+            <td>Place</td>
+            <td><button id="teamName" onclick="sortByName()">Team Name</button></td>
+            <td><button id="cumRecord" onclick="sortByCumRecord()">Cumulative Record</button></td>
+            <td><button id="record" onclick="sortByRecord()">Record</button></td>
+            <td><button id="fraudScore" onclick="sortByFraudScore()">Fraud Score</button></td>
+          </tr>
+        </table>
   <script src='fantasyStandings.js'></script>
   </body>
 </html>

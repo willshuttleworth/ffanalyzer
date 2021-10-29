@@ -1,21 +1,3 @@
-//TODO:
-//ADD FORM INPUT FOR LEAGUE ID
-//CHANGE TABLE RANKINGS WHEN RESPECTIVE BUTTON IS CLICKED
-//  CREATE METHOD FOR EACH SORTING TYPE
-//  OR
-//  CREATE ONE METHOD AND PASS IN SORTING TYPE
-
-//getting league id from variety of input links:
-//find indext of "leagueId="
-//get substring at indexOf + 9
-//add numbers to id string, stop at end of string OR character is not a number
-//try catch or something to see if id is valid
-//could be invalid at 2 steps:
-//  1. link does not include a league id
-//  2. given league id returns some sort of error
-
-//set cooldown on button
-
 class Team{
   static standings = []
   constructor(fullName, id, scores, wins, draws, losses){
@@ -39,7 +21,6 @@ class Team{
           else if(this.scores[i] < teams[j].scores[i])
             this.cumLosses++
           else{
-            console.log(this.scores[i] + " " + teams[j].scores[i])
             this.cumDraws++
           }
         }
@@ -97,7 +78,6 @@ class Team{
     for(let i = 0; i < scores.length; i++)
       teams[i] = new Team(matchupData.teams[i].location + " " + matchupData.teams[i].nickname, matchupData.teams[i].id, scores[i], matchupData.teams[i].record.overall.wins, matchupData.teams[i].record.overall.ties, matchupData.teams[i].record.overall.losses)
 
-    console.log(teams)
     for(let i = 0; i < teams.length; i++){
       teams[i].calculateCumRecord(teams, i)
       teams[i].calculatePercentDiff()
@@ -107,7 +87,6 @@ class Team{
     teams = createCumRankings(teams)
     var table = document.getElementById('table')
 
-    //adding rankings to html table
     for(let i = 0; i < teams.length; i++){
       var row = table.insertRow(i + 1)
       var record = teams[i].wins + "-" + teams[i].draws + "-" + teams[i].losses;
@@ -121,14 +100,7 @@ class Team{
     }
 
     //removing excess rows
-    let tableLength = table.rows.length;
-    console.log(tableLength + " " + teams.length)
-    let excessRows = tableLength - (teams.length + 1);
-
-    if(excessRows > 0){
-      for(let i = 0; i < excessRows; i++)
-        table.deleteRow(teams.length + 1);
-    }
+    removeExcessRows(teams, table);
     console.log("cumulative standings")
 
     for(let i = 0; i < teams.length; i++)
@@ -181,26 +153,66 @@ class Team{
     }
     return teams
   }
-
-  async function isValidURL(URL){
-    //test if url returns valid api call
+  function createNameRankings(teams){
+    for (let i = 0; i < teams.length; i++) {
+        for (let j = 0; j < teams.length - 1 - i; j++) {
+            if (teams[j].fullName > teams[j + 1].fullName) {
+              let temp = teams[j]
+              teams[j] = teams[j + 1]
+              teams[j + 1] = temp
+            }
+        }
+    }
+    return teams
   }
 
+  function createRecordRankings(teams){
+    for (let i = 0; i < teams.length; i++) {
+        for (let j = 0; j < teams.length - 1 - i; j++) {
+            if (teams[j].wins + teams[j].draws < teams[j + 1].wins + teams[j + 1].draws){
+              let temp = teams[j]
+              teams[j] = teams[j + 1]
+              teams[j + 1] = temp
+            }
+        }
+    }
+    return teams
+  }
   function sortByName(){
-    console.log("sorted by name")
+    let table = document.getElementById('table');
+    teams = createNameRankings(teams);
+    editTable(teams, table);
   }
   function sortByCumRecord(){
-    console.log("sorted by cumulative record")
+    let table = document.getElementById('table');
+    teams = createCumRankings(teams);
+    editTable(teams, table);
   }
   function sortByRecord(){
-    console.log("sorted by record")
+    let table = document.getElementById('table');
+    teams = createRecordRankings(teams);
+    editTable(teams, table);
   }
   function sortByFraudScore(){
-    console.log("sorted by fraud score")
+    let table = document.getElementById('table');
+    teams = createFraudRankings(teams);
+    editTable(teams, table);
   }
 
+  //called on every submit button click
   function getLeagueId(){
     let leagueId = document.getElementById('leagueInput').value;
+    //getting id from entire url
+    if(leagueId != null){
+      let startIndex = leagueId.indexOf("?leagueId=");
+      if(startIndex == -1)
+        alert("invalid link. please try again")
+      startIndex += 10;
+      let endIndex = startIndex + 1;
+      while(endIndex < leagueId.length && isNum(leagueId.charAt(endIndex)))
+        endIndex++;
+      leagueId = leagueId.substring(startIndex, endIndex);
+    }
     if(leagueId != null){
       //url for scores
       let apiURL1 = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=mBoxscore"
@@ -209,7 +221,34 @@ class Team{
       getMatchupData(apiURL1, apiURL2);
     }
   }
+  //adding rankings to html table
+  function editTable(teams, table){
+    for(let i = 1; i <= teams.length; i++){
+      var record = teams[i - 1].wins + "-" + teams[i - 1].draws + "-" + teams[i - 1].losses;
+      var cumRecord = teams[i - 1].cumWins + "-" + teams[i - 1].cumDraws + "-" + teams[i - 1].cumLosses;
 
+      table.rows[i].cells[0].innerText = i;
+      table.rows[i].cells[1].innerText = teams[i - 1].fullName;
+      table.rows[i].cells[2].innerText = cumRecord;
+      table.rows[i].cells[3].innerText = record;
+      table.rows[i].cells[4].innerText = teams[i - 1].percentDiff.toFixed(3)
+    }
+  }
+  function removeExcessRows(teams, table){
+    let tableLength = table.rows.length;
+    let excessRows = tableLength - (teams.length + 1);
+
+    if(excessRows > 0){
+      for(let i = 0; i < excessRows; i++)
+        table.deleteRow(teams.length + 1);
+    }
+  }
+  //checking if specified single character string is a number (taken from stackoverflow)
+  function isNum(str){
+    return /^\d+$/.test(str);
+  }
+
+//main execution
 //array of Team objects
 let teams = []
 let currentWeek = 0

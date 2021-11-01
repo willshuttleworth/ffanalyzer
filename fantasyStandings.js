@@ -60,7 +60,7 @@ class Team{
     for(let i = 0; i < matchupData.teams.length; i++)
       idKeys[matchupData.teams[i].id] = i
 
-    currentWeek = matchupData.scoringPeriodId
+    currentWeek = matchupData.scoringPeriodId;
 
     //declaring 2d array of scores
     //i = numTeams, j = num regular season weeks
@@ -94,6 +94,8 @@ class Team{
 
       row.insertCell(0).innerText = i + 1;
       row.insertCell(1).innerText = teams[i].fullName;
+      table.rows[i + 1].cells[1].style.textAlign = "left";
+      console.log(i);
       row.insertCell(2).innerText = cumRecord;
       row.insertCell(3).innerText = record;
       row.insertCell(4).innerText = teams[i].percentDiff.toFixed(3)

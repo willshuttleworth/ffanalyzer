@@ -1,6 +1,8 @@
-class Team{
+class Team
+{
   static standings = []
-  constructor(fullName, id, scores, wins, draws, losses){
+  constructor(fullName, id, scores, wins, draws, losses)
+  {
     this.fullName = fullName
     this.id = id
     this.scores = scores
@@ -12,31 +14,37 @@ class Team{
     this.cumLosses = 0
     this.percentDiff = 0
   }
-  calculateCumRecord(teams){
-    for(let i = 0; i < currentWeek - 1; i++){
-      for(let j = 0; j < teams.length; j++){
-        if(this.id != teams[j].id){
+  calculateCumRecord(teams)
+  {
+    for(let i = 0; i < currentWeek - 1; i++)
+    {
+      for(let j = 0; j < teams.length; j++)
+      {
+        if(this.id != teams[j].id)
+        {
           if(this.scores[i] > teams[j].scores[i])
             this.cumWins++
           else if(this.scores[i] < teams[j].scores[i])
             this.cumLosses++
-          else{
+          else
             this.cumDraws++
-          }
         }
       }
     }
   }
   //printing cumulative record
-  printRecord(rank){
+  printRecord(rank)
+  {
     console.log((rank + 1) + ". " + this.fullName + ": " + this.cumWins + "-" + this.cumDraws + "-" + this.cumLosses)
   }
   //printing standard win% - cumulative win%
-  printFraudScore(rank){
+  printFraudScore(rank)
+  {
     console.log((rank + 1) + ". " + this.fullName + ": " + this.percentDiff.toFixed(3))
   }
 
-  calculatePercentDiff(){
+  calculatePercentDiff()
+  {
   const winPercent = this.wins / (this.wins + this.draws + this.losses)
   const cumWinPercent = this.cumWins / (this.cumWins + this.cumDraws + this.cumLosses)
   this.percentDiff = winPercent - cumWinPercent
@@ -67,7 +75,8 @@ class Team{
     let scores = createArray(matchupData.teams.length, matchupData.schedule.length / (matchupData.teams.length / 2))
 
     //initializing scores array
-    for(let i = 0; i < matchupData.schedule.length; i++){
+    for(let i = 0; i < matchupData.schedule.length; i++)
+    {
       scores[idKeys[matchupData.schedule[i].away.teamId]][matchupData.schedule[i].matchupPeriodId - 1] = matchupData.schedule[i].away.totalPoints
       scores[idKeys[matchupData.schedule[i].home.teamId]][matchupData.schedule[i].matchupPeriodId - 1] = matchupData.schedule[i].home.totalPoints
     }
@@ -78,7 +87,8 @@ class Team{
     for(let i = 0; i < scores.length; i++)
       teams[i] = new Team(matchupData.teams[i].location + " " + matchupData.teams[i].nickname, matchupData.teams[i].id, scores[i], matchupData.teams[i].record.overall.wins, matchupData.teams[i].record.overall.ties, matchupData.teams[i].record.overall.losses)
 
-    for(let i = 0; i < teams.length; i++){
+    for(let i = 0; i < teams.length; i++)
+    {
       teams[i].calculateCumRecord(teams, i)
       teams[i].calculatePercentDiff()
     }
@@ -87,7 +97,8 @@ class Team{
     teams = createCumRankings(teams)
     var table = document.getElementById('table')
 
-    for(let i = 0; i < teams.length; i++){
+    for(let i = 0; i < teams.length; i++)
+    {
       var row = table.insertRow(i + 1)
       var record = teams[i].wins + "-" + teams[i].draws + "-" + teams[i].losses;
       var cumRecord = teams[i].cumWins + "-" + teams[i].cumDraws + "-" + teams[i].cumLosses;
@@ -116,11 +127,13 @@ class Team{
 
   }
   //thing copied from stackoverflow idk what it does
-  function createArray(length) {
+  function createArray(length)
+  {
     var arr = new Array(length || 0),
         i = length
 
-    if (arguments.length > 1) {
+    if (arguments.length > 1)
+    {
         var args = Array.prototype.slice.call(arguments, 1)
         while(i--) arr[length-1 - i] = createArray.apply(this, args)
     }
@@ -129,10 +142,14 @@ class Team{
   }
 
   //ranking based on cumulative record
-  function createCumRankings(teams){
-    for (let i = 0; i < teams.length; i++) {
-        for (let j = 0; j < teams.length - 1 - i; j++) {
-            if (teams[j].cumWins < teams[j + 1].cumWins) {
+  function createCumRankings(teams)
+  {
+    for (let i = 0; i < teams.length; i++)
+    {
+        for (let j = 0; j < teams.length - 1 - i; j++)
+        {
+            if (teams[j].cumWins < teams[j + 1].cumWins)
+            {
               let temp = teams[j]
               teams[j] = teams[j + 1]
               teams[j + 1] = temp
@@ -143,10 +160,14 @@ class Team{
   }
 
   //ranking based on win% - cumulative win%
-  function createFraudRankings(teams){
-    for (let i = 0; i < teams.length; i++) {
-        for (let j = 0; j < teams.length - 1 - i; j++) {
-            if (teams[j].percentDiff < teams[j + 1].percentDiff) {
+  function createFraudRankings(teams)
+  {
+    for (let i = 0; i < teams.length; i++)
+    {
+        for (let j = 0; j < teams.length - 1 - i; j++)
+        {
+            if (teams[j].percentDiff < teams[j + 1].percentDiff)
+            {
               let temp = teams[j]
               teams[j] = teams[j + 1]
               teams[j + 1] = temp
@@ -155,10 +176,14 @@ class Team{
     }
     return teams
   }
-  function createNameRankings(teams){
-    for (let i = 0; i < teams.length; i++) {
-        for (let j = 0; j < teams.length - 1 - i; j++) {
-            if (teams[j].fullName > teams[j + 1].fullName) {
+  function createNameRankings(teams)
+  {
+    for (let i = 0; i < teams.length; i++)
+    {
+        for (let j = 0; j < teams.length - 1 - i; j++)
+        {
+            if (teams[j].fullName > teams[j + 1].fullName)
+            {
               let temp = teams[j]
               teams[j] = teams[j + 1]
               teams[j + 1] = temp
@@ -168,10 +193,14 @@ class Team{
     return teams
   }
 
-  function createRecordRankings(teams){
-    for (let i = 0; i < teams.length; i++) {
-        for (let j = 0; j < teams.length - 1 - i; j++) {
-            if (teams[j].wins + teams[j].draws < teams[j + 1].wins + teams[j + 1].draws){
+  function createRecordRankings(teams)
+  {
+    for (let i = 0; i < teams.length; i++)
+    {
+        for (let j = 0; j < teams.length - 1 - i; j++)
+        {
+            if (teams[j].wins + teams[j].draws < teams[j + 1].wins + teams[j + 1].draws)
+            {
               let temp = teams[j]
               teams[j] = teams[j + 1]
               teams[j + 1] = temp
@@ -180,32 +209,38 @@ class Team{
     }
     return teams
   }
-  function sortByName(){
+  function sortByName()
+  {
     let table = document.getElementById('table');
     teams = createNameRankings(teams);
     editTable(teams, table);
   }
-  function sortByCumRecord(){
+  function sortByCumRecord()
+  {
     let table = document.getElementById('table');
     teams = createCumRankings(teams);
     editTable(teams, table);
   }
-  function sortByRecord(){
+  function sortByRecord()
+  {
     let table = document.getElementById('table');
     teams = createRecordRankings(teams);
     editTable(teams, table);
   }
-  function sortByFraudScore(){
+  function sortByFraudScore()
+  {
     let table = document.getElementById('table');
     teams = createFraudRankings(teams);
     editTable(teams, table);
   }
 
   //called on every submit button click
-  function getLeagueId(){
+  function getLeagueId()
+  {
     let leagueId = document.getElementById('leagueInput').value;
     //getting id from entire url
-    if(leagueId != null){
+    if(leagueId != null)
+    {
       let startIndex = leagueId.indexOf("?leagueId=");
       if(startIndex == -1)
         alert("invalid link. please try again")
@@ -215,7 +250,8 @@ class Team{
         endIndex++;
       leagueId = leagueId.substring(startIndex, endIndex);
     }
-    if(leagueId != null){
+    if(leagueId != null)
+    {
       //url for scores
       let apiURL1 = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=mBoxscore"
       //url for league name
@@ -224,8 +260,10 @@ class Team{
     }
   }
   //adding rankings to html table
-  function editTable(teams, table){
-    for(let i = 1; i <= teams.length; i++){
+  function editTable(teams, table)
+  {
+    for(let i = 1; i <= teams.length; i++)
+    {
       var record = teams[i - 1].wins + "-" + teams[i - 1].draws + "-" + teams[i - 1].losses;
       var cumRecord = teams[i - 1].cumWins + "-" + teams[i - 1].cumDraws + "-" + teams[i - 1].cumLosses;
 
@@ -236,21 +274,19 @@ class Team{
       table.rows[i].cells[4].innerText = teams[i - 1].percentDiff.toFixed(3)
     }
   }
-  function removeExcessRows(teams, table){
+  function removeExcessRows(teams, table)
+  {
     let tableLength = table.rows.length;
     let excessRows = tableLength - (teams.length + 1);
 
-    if(excessRows > 0){
+    if(excessRows > 0)
+    {
       for(let i = 0; i < excessRows; i++)
         table.deleteRow(teams.length + 1);
     }
   }
   //checking if specified single character string is a number (taken from stackoverflow)
-  function isNum(str){
+  function isNum(str)
+  {
     return /^\d+$/.test(str);
   }
-
-//main execution
-//array of Team objects
-let teams = []
-let currentWeek = 0

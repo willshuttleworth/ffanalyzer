@@ -1,8 +1,13 @@
+<<<<<<< HEAD
 class Team
 {
   static standings = []
   constructor(fullName, id, scores, wins, draws, losses)
   {
+=======
+class Team{
+  constructor(fullName, id, scores, wins, draws, losses){
+>>>>>>> restructuring
     this.fullName = fullName
     this.id = id
     this.scores = scores
@@ -14,6 +19,7 @@ class Team
     this.cumLosses = 0
     this.percentDiff = 0
   }
+<<<<<<< HEAD
   calculateCumRecord(teams)
   {
     for(let i = 0; i < currentWeek - 1; i++)
@@ -22,6 +28,14 @@ class Team
       {
         if(this.id != teams[j].id)
         {
+=======
+
+  //calculates cumulative record for Team calling object
+  calculateCumRecord(teams){
+    for(let i = 0; i < currentWeek - 1; i++){
+      for(let j = 0; j < teams.length; j++){
+        if(this.id != teams[j].id){
+>>>>>>> restructuring
           if(this.scores[i] > teams[j].scores[i])
             this.cumWins++
           else if(this.scores[i] < teams[j].scores[i])
@@ -32,6 +46,7 @@ class Team
       }
     }
   }
+<<<<<<< HEAD
   //printing cumulative record
   printRecord(rank)
   {
@@ -45,18 +60,32 @@ class Team
 
   calculatePercentDiff()
   {
+=======
+  //printing cumulative record in console
+  printRecord(rank){
+    console.log((rank + 1) + ". " + this.fullName + ": " + this.cumWins + "-" + this.cumDraws + "-" + this.cumLosses)
+  }
+  //printing standard win% - cumulative win% in console
+  printFraudScore(rank){
+    console.log((rank + 1) + ". " + this.fullName + ": " + this.percentDiff.toFixed(3))
+  }
+
+  //calculating fraud score
+  calculatePercentDiff(){
+>>>>>>> restructuring
   const winPercent = this.wins / (this.wins + this.draws + this.losses)
   const cumWinPercent = this.cumWins / (this.cumWins + this.cumDraws + this.cumLosses)
   this.percentDiff = winPercent - cumWinPercent
   }
-}
+}//end Team class
+
   //GETTING POINTS FOR FROM API
-  async function getMatchupData(apiURL1, apiURL2)
+  async function getMatchupData(leagueDataURL, leagueNameURL)
   {
-    const response = await fetch(apiURL1)
+    const response = await fetch(leagueDataURL)
     const matchupData = await response.json()
 
-    const response2 = await fetch(apiURL2);
+    const response2 = await fetch(leagueNameURL);
     const leagueData = await response2.json();
     const leagueName = leagueData.settings.name;
 
@@ -97,8 +126,13 @@ class Team
     teams = createCumRankings(teams)
     var table = document.getElementById('table')
 
+<<<<<<< HEAD
     for(let i = 0; i < teams.length; i++)
     {
+=======
+    //ranking teams by default(cumulative record) and inserting into table
+    for(let i = 0; i < teams.length; i++){
+>>>>>>> restructuring
       var row = table.insertRow(i + 1)
       var record = teams[i].wins + "-" + teams[i].draws + "-" + teams[i].losses;
       var cumRecord = teams[i].cumWins + "-" + teams[i].cumDraws + "-" + teams[i].cumLosses;
@@ -229,10 +263,10 @@ class Team
     if(leagueId != null)
     {
       //url for scores
-      let apiURL1 = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=mBoxscore"
+      let leagueDataURL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=mBoxscore"
       //url for league name
-      let apiURL2 = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=player_wl"
-      getMatchupData(apiURL1, apiURL2);
+      let leagueNameURL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=player_wl"
+      getMatchupData(leagueDataURL, leagueNameURL);
     }
   }
   //adding rankings to html table

@@ -126,20 +126,6 @@ class Team
       teams[i].printFraudScore(i)
 
   }
-  //thing copied from stackoverflow idk what it does
-  function createArray(length)
-  {
-    var arr = new Array(length || 0),
-        i = length
-
-    if (arguments.length > 1)
-    {
-        var args = Array.prototype.slice.call(arguments, 1)
-        while(i--) arr[length-1 - i] = createArray.apply(this, args)
-    }
-
-    return arr
-  }
 
   //ranking based on cumulative record
   function createCumRankings(teams)
@@ -209,31 +195,21 @@ class Team
     }
     return teams
   }
-  function sortByName()
+  
+  //called on column button press. sorts by button clicked
+  function sortTable(sortParam)
   {
-    let table = document.getElementById('table');
-    teams = createNameRankings(teams);
-    editTable(teams, table);
+    let table = document.getElementById('table')
+    if(sortParam === 'name')
+      teams = createNameRankings(teams)
+    else if(sortParam === 'cumRecord')
+      teams = createCumRankings(teams)
+    else if(sortParam === 'record')
+      teams = createRecordRankings(teams)
+    else if(sortParam === 'fraudScore')
+      teams = createFraudRankings(teams)
+    editTable(teams, table)
   }
-  function sortByCumRecord()
-  {
-    let table = document.getElementById('table');
-    teams = createCumRankings(teams);
-    editTable(teams, table);
-  }
-  function sortByRecord()
-  {
-    let table = document.getElementById('table');
-    teams = createRecordRankings(teams);
-    editTable(teams, table);
-  }
-  function sortByFraudScore()
-  {
-    let table = document.getElementById('table');
-    teams = createFraudRankings(teams);
-    editTable(teams, table);
-  }
-
   //called on every submit button click
   function getLeagueId()
   {
@@ -290,3 +266,17 @@ class Team
   {
     return /^\d+$/.test(str);
   }
+  //thing copied from stackoverflow idk what it does
+  function createArray(length)
+  {
+    var arr = new Array(length || 0),
+    i = length
+    if (arguments.length > 1)
+    {
+      var args = Array.prototype.slice.call(arguments, 1)
+      while(i--) 
+        arr[length-1 - i] = createArray.apply(this, args)
+    }
+  
+    return arr
+   }

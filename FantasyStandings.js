@@ -1,13 +1,10 @@
-<<<<<<< HEAD
 class Team
 {
   static standings = []
   constructor(fullName, id, scores, wins, draws, losses)
   {
-=======
 class Team{
   constructor(fullName, id, scores, wins, draws, losses){
->>>>>>> restructuring
     this.fullName = fullName
     this.id = id
     this.scores = scores
@@ -19,7 +16,6 @@ class Team{
     this.cumLosses = 0
     this.percentDiff = 0
   }
-<<<<<<< HEAD
   calculateCumRecord(teams)
   {
     for(let i = 0; i < currentWeek - 1; i++)
@@ -28,14 +24,12 @@ class Team{
       {
         if(this.id != teams[j].id)
         {
-=======
 
   //calculates cumulative record for Team calling object
   calculateCumRecord(teams){
     for(let i = 0; i < currentWeek - 1; i++){
       for(let j = 0; j < teams.length; j++){
         if(this.id != teams[j].id){
->>>>>>> restructuring
           if(this.scores[i] > teams[j].scores[i])
             this.cumWins++
           else if(this.scores[i] < teams[j].scores[i])
@@ -46,7 +40,6 @@ class Team{
       }
     }
   }
-<<<<<<< HEAD
   //printing cumulative record
   printRecord(rank)
   {
@@ -60,7 +53,6 @@ class Team{
 
   calculatePercentDiff()
   {
-=======
   //printing cumulative record in console
   printRecord(rank){
     console.log((rank + 1) + ". " + this.fullName + ": " + this.cumWins + "-" + this.cumDraws + "-" + this.cumLosses)
@@ -72,7 +64,6 @@ class Team{
 
   //calculating fraud score
   calculatePercentDiff(){
->>>>>>> restructuring
   const winPercent = this.wins / (this.wins + this.draws + this.losses)
   const cumWinPercent = this.cumWins / (this.cumWins + this.cumDraws + this.cumLosses)
   this.percentDiff = winPercent - cumWinPercent
@@ -126,13 +117,10 @@ class Team{
     teams = createCumRankings(teams)
     var table = document.getElementById('table')
 
-<<<<<<< HEAD
     for(let i = 0; i < teams.length; i++)
     {
-=======
     //ranking teams by default(cumulative record) and inserting into table
     for(let i = 0; i < teams.length; i++){
->>>>>>> restructuring
       var row = table.insertRow(i + 1)
       var record = teams[i].wins + "-" + teams[i].draws + "-" + teams[i].losses;
       var cumRecord = teams[i].cumWins + "-" + teams[i].cumDraws + "-" + teams[i].cumLosses;

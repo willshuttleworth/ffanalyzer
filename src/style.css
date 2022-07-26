@@ -1,0 +1,45 @@
+table, th, td {
+border: 1.75px solid black;
+text-align: center;
+}
+table{
+  margin: auto;
+  width: 50%
+}
+
+h1, p{
+  margin: auto;
+  width: 50%;
+}
+
+input{
+  width: 90%;
+}
+
+.center{
+  margin: auto;
+  width: 50%;
+}
+
+.button{
+  width: 100%;
+  background-color: white;
+  border: 1.5px solid black;
+  transition-duration: .5s;
+}
+
+.button:hover{
+  background-color: black;
+  color: white;
+}
+
+.font{
+  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.input-box{
+  padding: 1px;
+  margin-top: 6px;
+  margin-bottom: 10px;
+  margin-right: 4px;
+}

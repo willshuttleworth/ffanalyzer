@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <link rel="icon" href="logo3.png">
+  <link rel="stylesheet" href="style.css">
+  <meta charset="utf-8"/>
+  <title>fantasy standings</title >
+  </head>
+  <body class="font">
+        <h1 id='header'>Fantasy League Standings</h1>
+        <p id="linkText">please enter league link: </p>
+        <div class="center">
+          <input id="leagueInput" type="text" class="input-box"></input>
+          <button id="leagueSubmit" type="button" onclick="getLeagueId()" class="button" style="width: 8%">submit</button>
+        </div>
+        <table id = "table">
+          <tr>
+            <td class="first-column" style="padding: 0px">Rank</td>
+            <td><button id="teamName" onclick="sortTable('name')" class="button">Team Name</button></td>
+            <td><button id="cumRecord" onclick="sortTable('cumRecord')" class="button">Cumulative Record</button></td>
+            <td><button id="record" onclick="sortTable('record')" class="button">Record</button></td>
+            <td><button id="fraudScore" onclick="sortTable('fraudScore')" class="button">Fraud Score</button></td>
+          </tr>
+        </table>
+  <script src='fantasyStandings.js'></script>
+  </body>
+</html>

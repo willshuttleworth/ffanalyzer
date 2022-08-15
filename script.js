@@ -99,7 +99,6 @@ class Team{
       row.insertCell(0).innerText = i + 1;
       row.insertCell(1).innerText = teams[i].fullName;
       table.rows[i + 1].cells[1].style.textAlign = "left";
-      console.log(i);
       row.insertCell(2).innerText = cumRecord;
       row.insertCell(3).innerText = record;
       row.insertCell(4).innerText = teams[i].percentDiff.toFixed(3)
@@ -214,7 +213,7 @@ class Team{
       if(startIndex == -1)
         alert("invalid link. please try again")
       startIndex += 10;
-      let endIndex = startIndex + 1;
+      let endIndex = startIndex;
       while(endIndex < leagueId.length && isNum(leagueId.charAt(endIndex)))
         endIndex++;
       leagueId = leagueId.substring(startIndex, endIndex);
@@ -240,6 +239,7 @@ class Team{
       table.rows[i].cells[4].innerText = teams[i - 1].percentDiff.toFixed(3)
     }
   }
+
   function removeExcessRows(teams, table){
     let tableLength = table.rows.length;
     let excessRows = tableLength - (teams.length + 1);
@@ -251,7 +251,7 @@ class Team{
   }
   //checking if specified single character string is a number (taken from stackoverflow)
   function isNum(str){
-    return /^\d+$/.test(str);
+    return /^\d$/.test(str);
   }
 
 //main execution

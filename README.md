@@ -1,5 +1,7 @@
 # ffanalyzer: a tool to import and view league data from espn fantasy football leagues
 
+![](sample.png)
+
 ### how it works
 
 * user enters espn fantasy league link(link must contain league id, but any link to a page within the fantasy league will include that)

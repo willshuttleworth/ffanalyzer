@@ -1,6 +1,6 @@
 # ffanalyzer: a tool to import and view league data from espn fantasy football leagues
 
-![](sample.png)
+![](img/sample.png)
 
 ### how it works
 

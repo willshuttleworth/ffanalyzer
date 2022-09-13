@@ -50,7 +50,7 @@ class Team{
   {
     const response = await fetch(leagueDataURL)
     const matchupData = await response.json()
-
+    console.log(leagueDataURL);
     const response2 = await fetch(leagueNameURL);
     const leagueData = await response2.json();
     const leagueName = leagueData.settings.name;
@@ -206,31 +206,46 @@ class Team{
 
   //called on every submit button click
   function getLeagueId(){
+    //so season needs to be a variable, same way as leagueId is  
     let leagueId = document.getElementById('leagueInput').value;
+    let seasonId = document.getElementById('leagueInput').value;
     //getting id from entire url
     if(leagueId != null){
       let startIndex = leagueId.indexOf("?leagueId=");
-      if(startIndex == -1)
-        alert("invalid link. please try again")
+      if(startIndex == -1){
+        alert("invalid link. please try again");
+        return;
+      }
       startIndex += 10;
       let endIndex = startIndex;
       while(endIndex < leagueId.length && isNum(leagueId.charAt(endIndex)))
         endIndex++;
       leagueId = leagueId.substring(startIndex, endIndex);
     }
-    if(leagueId != null){
-      //url for scores
-      let leagueDataURL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=mBoxscore"
-      //url for league name
-      let leagueNameURL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/2021/segments/0/leagues/" + leagueId + "?view=player_wl"
-      getMatchupData(leagueDataURL, leagueNameURL);
+    if(seasonId != null){
+      let startIndex = seasonId.indexOf("&seasonId=");
+      if(startIndex == -1){
+        alert("invalid link. please try again");
+        return;
+      }
+      startIndex += 10;
+      let endIndex = startIndex;
+      while(endIndex < seasonId.length && isNum(seasonId.charAt(endIndex)))
+        endIndex++;
+      seasonId = seasonId.substring(startIndex, endIndex);
+      console.log(seasonId);
     }
+    //url for scores
+    let leagueDataURL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/" + seasonId + "/segments/0/leagues/" + leagueId + "?view=mBoxscore"
+    //url for league name
+    let leagueNameURL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/" + seasonId + "/segments/0/leagues/" + leagueId + "?view=player_wl"
+    getMatchupData(leagueDataURL, leagueNameURL);
   }
   //adding rankings to html table
   function editTable(teams, table){
     for(let i = 1; i <= teams.length; i++){
-      var record = teams[i - 1].wins + "-" + teams[i - 1].draws + "-" + teams[i - 1].losses;
-      var cumRecord = teams[i - 1].cumWins + "-" + teams[i - 1].cumDraws + "-" + teams[i - 1].cumLosses;
+        var record = teams[i - 1].wins + "-" + teams[i - 1].draws + "-" + teams[i - 1].losses;
+        var cumRecord = teams[i - 1].cumWins + "-" + teams[i - 1].cumDraws + "-" + teams[i - 1].cumLosses;
 
       table.rows[i].cells[0].innerText = i;
       table.rows[i].cells[1].innerText = teams[i - 1].fullName;

@@ -224,25 +224,28 @@ function getLeagueId(){
             alert("invalid link. please try again");
             return;
         }
-    startIndex += 10;
-    let endIndex = startIndex;
-    while(endIndex < leagueId.length && isNum(leagueId.charAt(endIndex)))
-        endIndex++;
-    leagueId = leagueId.substring(startIndex, endIndex);
+        startIndex += 10;
+        let endIndex = startIndex;
+        while(endIndex < leagueId.length && isNum(leagueId.charAt(endIndex)))
+            endIndex++;
+        leagueId = leagueId.substring(startIndex, endIndex);
     }
     
     if(seasonId != null){
-        let startIndex = seasonId.indexOf("&seasonId=");
-        if(startIndex == -1){
-            alert("invalid link. please try again");
-            return;
-        }
-        startIndex += 10;
-        let endIndex = startIndex;
-        while(endIndex < seasonId.length && isNum(seasonId.charAt(endIndex)))
-            endIndex++;
-        seasonId = seasonId.substring(startIndex, endIndex);
-        console.log(seasonId);
+            let startIndex = seasonId.indexOf("&seasonId=");
+            if(startIndex != -1) {
+                startIndex += 10;
+                let endIndex = startIndex;
+                while(endIndex < seasonId.length && isNum(seasonId.charAt(endIndex)))
+                    endIndex++;
+                seasonId = seasonId.substring(startIndex, endIndex);
+            }
+            else {
+                seasonId = 2022;
+            }
+    }
+    else {
+        alert("invalid league link");
     }
     //url for scores
     let leagueDataURL = "https://fantasy.espn.com/apis/v3/games/ffl/seasons/" + seasonId + "/segments/0/leagues/" + leagueId + "?view=mBoxscore"

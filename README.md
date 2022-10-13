@@ -2,7 +2,7 @@
 
 ### [try it yourself here](https://willshuttleworth.github.io/ffanalyzer/src/ffanalyzer.html)
 
-<img src="img/sample.png" width="400" height="225"/>
+<img src="img/sample.png" width="736" height="464"/>
 
 ### how it works
 

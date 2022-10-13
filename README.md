@@ -2,7 +2,7 @@
 
 ### [try it yourself here](https://willshuttleworth.github.io/ffanalyzer/src/ffanalyzer.html)
 
-![](img/sample.png)
+<img src="img/sample.png" width="800" height="600"/>
 
 ### how it works
 

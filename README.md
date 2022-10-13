@@ -1,6 +1,6 @@
 # ffanalyzer: a tool to import and view league data from espn fantasy football leagues
 
-### ![try it yourself here](https://willshuttleworth.github.io/ffanalyzer/src/ffanalyzer.html)
+### [try it yourself here](https://willshuttleworth.github.io/ffanalyzer/src/ffanalyzer.html)
 
 ![](img/sample.png)
 

@@ -257,8 +257,8 @@ function getLeagueId(){
 //adding rankings to html table
 function editTable(teams, table){
     for(let i = 1; i <= teams.length; i++){
-        var record = teams[i - 1].wins + "-" + teams[i - 1].draws + "-" + teams[i - 1].losses;
-        var cumRecord = teams[i - 1].cumWins + "-" + teams[i - 1].cumDraws + "-" + teams[i - 1].cumLosses;
+        var record = teams[i - 1].wins + "-" + teams[i - 1].losses + "-" + teams[i - 1].draws;
+        var cumRecord = teams[i - 1].cumWins + "-" + teams[i - 1].cumLosses+ "-" + teams[i - 1].cumDraws;
 
         table.rows[i].cells[0].innerText = i;
         table.rows[i].cells[1].innerText = teams[i - 1].fullName;

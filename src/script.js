@@ -30,7 +30,7 @@ class Team{
     }
     //printing cumulative record in console
     printRecord(rank){
-        console.log((rank + 1) + ". " + this.fullName + ": " + this.cumWins + "-" + this.cumDraws + "-" + this.cumLosses);
+        console.log((rank + 1) + ". " + this.fullName + ": " + this.cumWins + "-" + this.cumLosses + "-" + this.cumDraws);
     }
     //printing standard win% - cumulative win% in console
     printFraudScore(rank){
@@ -94,8 +94,8 @@ async function getMatchupData(leagueDataURL, leagueNameURL){
     //ranking teams by default(cumulative record) and inserting into table
     for(let i = 0; i < teams.length; i++){
         var row = table.insertRow(i + 1);
-        var record = teams[i].wins + "-" + teams[i].draws + "-" + teams[i].losses;
-        var cumRecord = teams[i].cumWins + "-" + teams[i].cumDraws + "-" + teams[i].cumLosses;
+        var record = teams[i].wins + "-" + teams[i].losses + "-" + teams[i].draws;
+        var cumRecord = teams[i].cumWins + "-" + teams[i].cumLosses+ "-" + teams[i].cumDraws;
 
         row.insertCell(0).innerText = i + 1;
         row.insertCell(1).innerText = teams[i].fullName;

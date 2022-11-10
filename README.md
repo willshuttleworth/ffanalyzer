@@ -19,7 +19,7 @@
 
 ### future updates
 
-* dropdown box to select which week's standings to view
+* save leagues user has entered before, select from dropdown
 
 ### about
 

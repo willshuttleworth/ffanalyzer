@@ -21,7 +21,3 @@
 
 * save leagues user has entered before, select from dropdown
 
-### about
-
-* made by will shuttleworth. thank you to league mates for help with testing. more features coming for 2022 season
-
